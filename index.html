@@ -5,69 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle Financeiro Autônomo</title>
     <style>
+        :root {
+            --primary: #5a67d8;
+            --primary-dark: #434190;
+            --primary-light: #ebf0ff;
+            --secondary: #764ba2;
+            --success: #38a169;
+            --success-light: #f0fff4;
+            --danger: #e53e3e;
+            --danger-light: #fff5f5;
+            --warning: #d69e2e;
+            --warning-light: #fffff0;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-700: #334155;
+            --gray-900: #0f172a;
+            --radius: 10px;
+            --radius-sm: 6px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 28px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.06);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: #eef2ff;
             min-height: 100vh;
             padding: 20px;
+            color: var(--gray-700);
         }
-
-        .container { max-width: 1200px; margin: 0 auto; }
-
+        .container { max-width: 1240px; margin: 0 auto; }
         header {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            padding: 16px 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
+            border: 1px solid var(--gray-200);
         }
-
-        h1 { color: #333; font-size: 24px; }
-
-        .nav-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-
+        h1 { color: var(--gray-900); font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+        .nav-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
         .nav-btn {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 4px;
+            padding: 7px 13px;
+            border: 1.5px solid transparent;
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-
-        .nav-btn.active { background: #667eea; color: white; }
-        .nav-btn:not(.active) { background: #f0f0f0; color: #333; }
-        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
+        .nav-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(90,103,216,0.35); }
+        .nav-btn:not(.active) { background: var(--gray-100); color: var(--gray-500); border-color: var(--gray-200); }
+        .nav-btn:not(.active):hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
         }
-
         .card h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 11px;
         }
-
-        .card h3 { color: #555; margin: 15px 0 10px; font-size: 15px; }
-
-        .form-group { margin-bottom: 14px; }
-
-        label { display: block; margin-bottom: 5px; color: #555; font-weight: 600; font-size: 13px; }
-
+        .card h3 { color: var(--gray-500); margin: 14px 0 10px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group { margin-bottom: 13px; }
+        label { display: block; margin-bottom: 5px; color: var(--gray-500); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; }
         input[type="text"],
         input[type="number"],
         input[type="date"],
@@ -75,277 +92,386 @@
         select,
         textarea {
             width: 100%;
-            padding: 9px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 9px 11px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
             font-family: inherit;
+            color: var(--gray-700);
+            background: var(--gray-50);
+            transition: all 0.15s;
         }
-
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(90,103,216,0.12);
         }
-
         textarea { resize: vertical; min-height: 70px; }
-
         button {
             padding: 9px 18px;
             border: none;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             font-size: 13px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-
-        .btn-primary { background: #667eea; color: white; width: 100%; }
-        .btn-primary:hover { background: #5568d3; transform: translateY(-2px); }
-        .btn-success { background: #48bb78; color: white; margin-right: 5px; }
-        .btn-success:hover { background: #38a169; }
-        .btn-danger { background: #f56565; color: white; }
-        .btn-danger:hover { background: #e53e3e; }
+        .btn-primary { background: var(--primary); color: white; width: 100%; padding: 10px; }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 3px 10px rgba(90,103,216,0.4); transform: translateY(-1px); }
+        .btn-success { background: var(--success); color: white; margin-right: 5px; }
+        .btn-success:hover { background: #2f855a; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #c53030; }
         .btn-warning { background: #ed8936; color: white; }
         .btn-warning:hover { background: #dd6b20; }
-        .btn-small { padding: 4px 9px; font-size: 12px; margin-left: 4px; }
-
+        .btn-small { padding: 4px 10px; font-size: 11.5px; margin-left: 4px; border-radius: 5px; }
+        .btn-secondary { background: var(--gray-100); color: var(--gray-700); border: 1.5px solid var(--gray-200); }
+        .btn-secondary:hover { background: var(--gray-200); }
         .summary {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 18px;
         }
-
         .summary-card {
             color: white;
-            padding: 18px;
-            border-radius: 8px;
+            padding: 16px 18px;
+            border-radius: var(--radius);
             text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: var(--shadow-sm);
         }
-
         .summary-card h3 {
-            font-size: 11px;
-            opacity: 0.9;
-            margin: 0 0 8px;
+            font-size: 10px;
+            opacity: 0.85;
+            margin: 0 0 7px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             color: white;
+            font-weight: 600;
         }
-
-        .summary-card .value { font-size: 22px; font-weight: bold; }
-        .summary-card.income { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); }
-        .summary-card.expense { background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%); }
-        .summary-card.balance { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .summary-card.warning { background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%); }
-        .summary-card.success { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); }
-
+        .summary-card .value { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+        .summary-card.income { background: linear-gradient(135deg, #38a169 0%, #276749 100%); }
+        .summary-card.expense { background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); }
+        .summary-card.balance { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); }
+        .summary-card.warning { background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); }
+        .summary-card.success { background: linear-gradient(135deg, #38a169 0%, #276749 100%); }
         .list-container { max-height: 400px; overflow-y: auto; }
-
         .list-item {
-            background: #f9f9f9;
-            padding: 11px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            border-left: 4px solid #667eea;
+            background: var(--gray-50);
+            padding: 11px 13px;
+            margin-bottom: 7px;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.15s;
         }
-
-        .list-item.expense { border-left-color: #f56565; }
-        .list-item.card-item { border-left-color: #764ba2; }
+        .list-item:hover { background: var(--primary-light); }
+        .list-item.expense { border-left-color: var(--danger); }
+        .list-item.card-item { border-left-color: var(--secondary); }
         .list-item-content { flex: 1; }
-        .list-item-title { font-weight: 600; color: #333; margin-bottom: 2px; font-size: 14px; }
-        .list-item-meta { font-size: 11px; color: #999; }
-        .list-item-value { font-size: 15px; font-weight: bold; margin-right: 8px; min-width: 80px; text-align: right; }
-        .list-item-value.income { color: #48bb78; }
-        .list-item-value.expense { color: #f56565; }
-        .list-item-value.card-val { color: #764ba2; }
+        .list-item-title { font-weight: 600; color: var(--gray-900); margin-bottom: 2px; font-size: 13.5px; }
+        .list-item-meta { font-size: 11px; color: var(--gray-400); }
+        .list-item-value { font-size: 14px; font-weight: 700; margin-right: 8px; min-width: 85px; text-align: right; }
+        .list-item-value.income { color: var(--success); }
+        .list-item-value.expense { color: var(--danger); }
+        .list-item-value.card-val { color: var(--secondary); }
         .list-actions { display: flex; gap: 4px; }
-
-        .empty-state { text-align: center; padding: 35px 20px; color: #aaa; font-size: 14px; }
-
-        .chart-bar { display: flex; align-items: center; margin-bottom: 12px; }
-        .chart-label { min-width: 100px; font-size: 12px; color: #555; font-weight: 600; }
-        .chart-bar-bg { flex: 1; height: 22px; background: #f0f0f0; border-radius: 4px; margin: 0 10px; overflow: hidden; }
-        .chart-bar-fill { height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.3s ease; }
-        .chart-value { min-width: 80px; text-align: right; font-size: 12px; color: #333; font-weight: 600; }
-
+        .empty-state { text-align: center; padding: 36px 20px; color: var(--gray-400); font-size: 13px; }
+        .chart-bar { display: flex; align-items: center; margin-bottom: 10px; }
+        .chart-label { min-width: 110px; font-size: 12px; color: var(--gray-500); font-weight: 600; }
+        .chart-bar-bg { flex: 1; height: 20px; background: var(--gray-100); border-radius: 5px; margin: 0 10px; overflow: hidden; }
+        .chart-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%); transition: width 0.4s ease; border-radius: 5px; }
+        .chart-value { min-width: 85px; text-align: right; font-size: 12px; color: var(--gray-700); font-weight: 700; }
         .section { display: none; }
         .section.active { display: block; }
-
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(15,23,42,0.55);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(3px);
         }
-
         .modal.active { display: flex; }
-
         .modal-content {
             background: white;
             padding: 28px;
-            border-radius: 8px;
+            border-radius: var(--radius);
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
         }
-
         .modal-header {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gray-900);
             margin-bottom: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .modal-close {
-            background: none; border: none;
-            font-size: 22px; cursor: pointer;
-            color: #999; padding: 0;
-            width: 28px; height: 28px;
+            background: var(--gray-100); border: none;
+            font-size: 16px; cursor: pointer;
+            color: var(--gray-500);
+            width: 30px; height: 30px;
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
         }
-
-        .modal-close:hover { color: #333; }
-
-        .filter-container { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-
+        .modal-close:hover { background: var(--gray-200); color: var(--gray-900); }
+        .filter-container { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
         .filter-btn {
-            padding: 5px 11px;
-            border: 1px solid #ddd;
+            padding: 5px 12px;
+            border: 1.5px solid var(--gray-200);
             background: white;
-            border-radius: 4px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active { background: #667eea; color: white; border-color: #667eea; }
-        .filter-btn:hover { border-color: #667eea; }
-
-        .goal-item { background: #f9f9f9; padding: 13px; border-radius: 4px; margin-bottom: 12px; }
-        .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .goal-title { font-weight: 600; color: #333; font-size: 14px; }
-        .goal-percentage { font-size: 12px; color: #667eea; font-weight: bold; }
-        .goal-meta { font-size: 12px; color: #999; margin-top: 4px; }
-
-        .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #48bb78 0%, #38a169 100%); transition: width 0.3s ease; }
-        .progress-fill.over { background: linear-gradient(90deg, #f56565 0%, #e53e3e 100%); }
-
-        .success-message {
-            background: #c6f6d5; border: 1px solid #48bb78;
-            color: #22543d; padding: 11px; border-radius: 4px;
-            margin-bottom: 13px; display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        .success-message.show { display: block; }
-
-        .error-message {
-            background: #fed7d7; border: 1px solid #f56565;
-            color: #742a2a; padding: 11px; border-radius: 4px;
-            margin-bottom: 13px; display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        .error-message.show { display: block; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-        /* CARTÃO ESTILOS */
-        .badge {
-            display: inline-block; padding: 2px 7px;
-            border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 6px;
-        }
-
-        .badge.active-badge { background: #c6f6d5; color: #22543d; }
-        .badge.inactive-badge { background: #fed7d7; color: #742a2a; }
-        .badge.paid { background: #c6f6d5; color: #22543d; }
-        .badge.open { background: #fef3c7; color: #78350f; }
-
-        .parcel-list { background: #f5f5f5; padding: 9px; border-radius: 4px; margin-top: 8px; font-size: 12px; }
-        .parcel-item { padding: 4px 0; border-bottom: 1px solid #ddd; }
-        .parcel-item:last-child { border-bottom: none; }
-
-        .limit-bar { width: 100%; height: 20px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin-top: 8px; }
-        .limit-fill { height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.3s ease; }
-        .limit-text { margin-top: 4px; font-size: 12px; color: #666; }
-
-        .invoice-header {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 12px; margin-bottom: 18px;
-        }
-
-        .invoice-stat {
-            background: #f9f9f9; padding: 12px;
-            border-radius: 4px; border-left: 4px solid #667eea;
-        }
-
-        .invoice-stat-label { font-size: 11px; color: #999; margin-bottom: 4px; text-transform: uppercase; }
-        .invoice-stat-value { font-size: 18px; font-weight: bold; color: #333; }
-
-        .list-item-cc {
-            background: #f9f9f9; padding: 11px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .list-cc-container { border: 1px solid #e0e0e0; border-radius: 4px; overflow: hidden; max-height: 350px; overflow-y: auto; }
-
-        .teto-badge {
-            font-size: 11px; padding: 2px 7px; border-radius: 10px;
-            font-weight: 600; margin-left: 6px;
-        }
-
-        .teto-ok { background: #c6f6d5; color: #22543d; }
-        .teto-alerta { background: #fef3c7; color: #78350f; }
-        .teto-estourado { background: #fed7d7; color: #742a2a; }
-
-        /* Seção Cartões nav aba interna */
-        .sub-nav {
-            display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap;
-        }
-
-        .sub-nav-btn {
-            padding: 6px 12px; border: 1px solid #ddd;
-            background: white; border-radius: 4px;
-            cursor: pointer; font-size: 12px; font-weight: 600;
+            font-weight: 600;
+            color: var(--gray-500);
             transition: all 0.2s;
         }
-
-        .sub-nav-btn.active { background: #764ba2; color: white; border-color: #764ba2; }
-        .sub-nav-btn:hover { border-color: #764ba2; }
-
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .filter-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+        .goal-item {
+            background: var(--gray-50);
+            padding: 14px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            border: 1px solid var(--gray-200);
+            transition: box-shadow 0.2s;
+        }
+        .goal-item:hover { box-shadow: var(--shadow-sm); }
+        .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .goal-title { font-weight: 700; color: var(--gray-900); font-size: 14px; }
+        .goal-percentage { font-size: 13px; color: var(--primary); font-weight: 700; }
+        .goal-meta { font-size: 11.5px; color: var(--gray-400); margin-top: 5px; line-height: 1.5; }
+        .progress-bar { width: 100%; height: 8px; background: var(--gray-200); border-radius: 20px; overflow: hidden; margin-bottom: 4px; }
+        .progress-fill { height: 100%; border-radius: 20px; transition: width 0.4s ease; background: linear-gradient(90deg, #38a169, #48bb78); }
+        .progress-fill.over { background: linear-gradient(90deg, #e53e3e, #fc8181); }
+        .success-message {
+            background: #f0fff4; border: 1px solid #9ae6b4;
+            color: #22543d; padding: 10px 13px; border-radius: var(--radius-sm);
+            margin-bottom: 13px; display: none; font-size: 13px; font-weight: 600;
+            animation: slideIn 0.3s ease;
+        }
+        .success-message.show { display: block; }
+        .error-message {
+            background: #fff5f5; border: 1px solid #feb2b2;
+            color: #742a2a; padding: 10px 13px; border-radius: var(--radius-sm);
+            margin-bottom: 13px; display: none; font-size: 13px; font-weight: 600;
+            animation: slideIn 0.3s ease;
+        }
+        .error-message.show { display: block; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .badge {
+            display: inline-flex; align-items: center; padding: 2px 8px;
+            border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: 6px;
+        }
+        .badge.active-badge { background: #d1fae5; color: #065f46; }
+        .badge.inactive-badge { background: #fee2e2; color: #7f1d1d; }
+        .badge.paid { background: #d1fae5; color: #065f46; }
+        .badge.open { background: #fef9c3; color: #713f12; }
+        .parcel-list { background: var(--gray-100); padding: 10px; border-radius: var(--radius-sm); margin-top: 8px; font-size: 12px; }
+        .parcel-item { padding: 4px 0; border-bottom: 1px solid var(--gray-200); color: var(--gray-500); }
+        .parcel-item:last-child { border-bottom: none; }
+        .limit-bar { width: 100%; height: 18px; background: var(--gray-100); border-radius: 20px; overflow: hidden; margin-top: 8px; }
+        .limit-fill { height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%); transition: width 0.4s ease; border-radius: 20px; }
+        .limit-text { margin-top: 5px; font-size: 11.5px; color: var(--gray-400); }
+        .invoice-header {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 10px; margin-bottom: 16px;
+        }
+        .invoice-stat {
+            background: var(--gray-50); padding: 12px 13px;
+            border-radius: var(--radius-sm); border-left: 3px solid var(--primary);
+        }
+        .invoice-stat-label { font-size: 10px; color: var(--gray-400); margin-bottom: 4px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .invoice-stat-value { font-size: 17px; font-weight: 700; color: var(--gray-900); }
+        .list-item-cc {
+            background: var(--gray-50); padding: 11px 13px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .list-cc-container { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; max-height: 350px; overflow-y: auto; }
+        .teto-badge {
+            font-size: 10.5px; padding: 2px 8px; border-radius: 20px;
+            font-weight: 700; margin-left: 6px;
+        }
+        .teto-ok { background: #d1fae5; color: #065f46; }
+        .teto-alerta { background: #fef9c3; color: #713f12; }
+        .teto-estourado { background: #fee2e2; color: #7f1d1d; }
+        .teto-alerta70 { background: #fef9c3; color: #713f12; }
+        .teto-alerta90 { background: #fed7aa; color: #7c2d12; }
+        .sub-nav {
+            display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap;
+            padding-bottom: 14px; border-bottom: 1px solid var(--gray-100);
+        }
+        .sub-nav-btn {
+            padding: 6px 14px; border: 1.5px solid var(--gray-200);
+            background: white; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            color: var(--gray-500);
+            transition: all 0.2s;
+        }
+        .sub-nav-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
+        .sub-nav-btn:hover:not(.active) { border-color: var(--secondary); color: var(--secondary); }
         .sub-section { display: none; }
         .sub-section.active { display: block; }
 
+        /* ====== ALERTAS TOAST ====== */
+        #alertasContainer {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 340px;
+            pointer-events: none;
+        }
+        .alerta-toast {
+            padding: 13px 16px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: slideInRight 0.35s ease;
+            border-left: 4px solid transparent;
+            background: white;
+            pointer-events: all;
+            border: 1px solid var(--gray-200);
+        }
+        .alerta-toast.alerta-70 { border-left-color: #d69e2e; }
+        .alerta-toast.alerta-90 { border-left-color: #ea580c; }
+        .alerta-toast.alerta-100 { border-left-color: var(--danger); }
+        .alerta-toast-icon { font-size: 18px; flex-shrink: 0; }
+        .alerta-toast-body { flex: 1; }
+        .alerta-toast-title { font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; color: var(--gray-900); }
+        .alerta-toast-msg { font-size: 12px; color: var(--gray-500); font-weight: 500; line-height: 1.4; }
+        .alerta-toast-close { background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 16px; padding: 0; width: 20px; height: 20px; flex-shrink: 0; }
+        .alerta-toast-close:hover { color: var(--gray-700); }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ====== TETO CARDS ====== */
+        .teto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 14px;
+            margin-top: 10px;
+        }
+        .teto-card {
+            background: white;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 16px;
+            transition: box-shadow 0.2s;
+        }
+        .teto-card:hover { box-shadow: var(--shadow); }
+        .teto-card.border-safe { border-color: #9ae6b4; }
+        .teto-card.border-warn70 { border-color: #fbd38d; }
+        .teto-card.border-warn90 { border-color: #f6ad55; }
+        .teto-card.border-over { border-color: #fc8181; }
+        .teto-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .teto-card-title { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+        .teto-card-cat { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+        .teto-card-pct { font-size: 24px; font-weight: 800; line-height: 1; }
+        .pct-safe { color: #38a169; }
+        .pct-warn70 { color: #d69e2e; }
+        .pct-warn90 { color: #ea580c; }
+        .pct-over { color: var(--danger); }
+        .teto-card-values { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .teto-val-item { background: var(--gray-50); border-radius: 6px; padding: 8px 10px; }
+        .teto-val-label { font-size: 9.5px; color: var(--gray-400); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+        .teto-val-value { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-top: 2px; }
+        .teto-card-hist { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--gray-100); }
+        .teto-card-hist-title { font-size: 9.5px; color: var(--gray-400); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+        .hist-bars { display: flex; align-items: flex-end; gap: 4px; height: 40px; }
+        .hist-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .hist-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 2px; }
+        .hist-bar.h-safe { background: #86efac; }
+        .hist-bar.h-warn { background: #fcd34d; }
+        .hist-bar.h-over { background: #fca5a5; }
+        .hist-label { font-size: 9px; color: var(--gray-400); text-align: center; font-weight: 500; }
+        .teto-card-actions { margin-top: 12px; display: flex; gap: 6px; }
+
+        /* ====== INFO BOX ====== */
+        .info-box {
+            background: var(--primary-light);
+            border: 1px solid #c7d2fe;
+            border-radius: var(--radius-sm);
+            padding: 10px 13px;
+            font-size: 12.5px;
+            color: var(--primary-dark);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* ====== METAS TABS ====== */
+        .metas-tabs {
+            display: flex; gap: 0; margin-bottom: 20px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .metas-tab {
+            padding: 9px 16px;
+            border: none; background: none;
+            font-size: 13px; font-weight: 600;
+            color: var(--gray-400);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.15s;
+        }
+        .metas-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .metas-tab:hover:not(.active) { color: var(--gray-700); }
+        .metas-tab-content { display: none; }
+        .metas-tab-content.active { display: block; }
+
+        /* ALERTAS INLINE */
+        .alerta-inline {
+            display: flex; align-items: center; gap: 8px;
+            padding: 9px 13px; border-radius: var(--radius-sm);
+            font-size: 12.5px; font-weight: 600; margin-bottom: 7px;
+        }
+        .alerta-inline.a70 { background: #fef9c3; color: #713f12; border-left: 3px solid #d69e2e; }
+        .alerta-inline.a90 { background: #ffedd5; color: #7c2d12; border-left: 3px solid #ea580c; }
+        .alerta-inline.a100 { background: #fee2e2; color: #7f1d1d; border-left: 3px solid var(--danger); }
+
         @media (max-width: 768px) {
             .two-column, .main-content, .summary, .invoice-header { grid-template-columns: 1fr; }
-            header { flex-direction: column; }
+            header { flex-direction: column; padding: 14px 16px; }
             .nav-buttons { width: 100%; }
-            .nav-btn { flex: 1; font-size: 11px; padding: 7px 8px; }
-            h1 { font-size: 18px; }
+            .nav-btn { flex: 1; font-size: 11px; padding: 7px 8px; text-align: center; }
+            h1 { font-size: 17px; }
+            .teto-grid { grid-template-columns: 1fr; }
+            body { padding: 12px; }
+            #alertasContainer { max-width: 90vw; right: 10px; }
         }
     </style>
 </head>
 <body>
+<div id="alertasContainer"></div>
 <div class="container">
     <header>
         <h1>💰 Controle Financeiro</h1>
@@ -356,6 +482,7 @@
             <button class="nav-btn" data-section="cartoes">💳 Cartões</button>
             <button class="nav-btn" data-section="metas">🎯 Metas</button>
             <button class="nav-btn" data-section="relatorios">📋 Relatórios</button>
+            <button class="nav-btn" data-section="backup">💾 Backup</button>
         </div>
     </header>
 
@@ -679,76 +806,148 @@
 
     <!-- METAS -->
     <section id="metas" class="section">
-        <div class="two-column">
-            <div class="card">
-                <h2>🎯 Criar Meta/Teto</h2>
-                <div class="success-message" id="mensagemSucessoMeta"></div>
-                <form id="formMeta">
-                    <div class="form-group">
-                        <label>Nome da Meta</label>
-                        <input type="text" id="nomeMeta" placeholder="Ex: Reserva Emergência" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tipo</label>
-                        <select id="tipoMeta">
-                            <option value="poupanca">🏦 Poupança (meta de acúmulo)</option>
-                            <option value="teto">🚫 Teto de Gastos por Categoria</option>
-                        </select>
-                    </div>
-                    <div id="camposMetaPoupanca">
-                        <div class="form-group">
-                            <label>Valor Alvo (R$)</label>
-                            <input type="number" id="valorMeta" step="0.01" min="0" placeholder="0,00">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor Atual (R$)</label>
-                            <input type="number" id="valorAtualMeta" step="0.01" min="0" placeholder="0,00">
-                        </div>
-                        <div class="form-group">
-                            <label>Data Limite</label>
-                            <input type="date" id="dataLimiteMeta">
-                        </div>
-                    </div>
-                    <div id="camposMetaTeto" style="display:none;">
-                        <div class="form-group">
-                            <label>Categoria de Gastos</label>
-                            <select id="categoriaTetoMeta">
-                                <option value="alimentacao">🍔 Alimentação</option>
-                                <option value="transporte">🚗 Transporte</option>
-                                <option value="moradia">🏠 Moradia</option>
-                                <option value="internet">📡 Internet/Telefone</option>
-                                <option value="energia">⚡ Energia/Água</option>
-                                <option value="saude">🏥 Saúde</option>
-                                <option value="educacao">📚 Educação</option>
-                                <option value="lazer">🎮 Lazer</option>
-                                <option value="eletronicos">💻 Eletrônicos</option>
-                                <option value="viagem">✈️ Viagem</option>
-                                <option value="casa">🏡 Casa</option>
-                                <option value="impostos">📋 Impostos</option>
-                                <option value="ferramentas">🛠️ Ferramentas</option>
-                                <option value="outro">📦 Outro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Teto Mensal (R$)</label>
-                            <input type="number" id="valorTetoMeta" step="0.01" min="0" placeholder="0,00">
-                        </div>
-                        <div class="form-group" style="font-size:12px;color:#888;background:#f9f9f9;padding:10px;border-radius:4px;">
-                            ℹ️ O teto soma despesas à vista <strong>e</strong> parcelas de cartão da categoria no mês atual.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea id="descricaoMeta" placeholder="Detalhes sobre a meta..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Criar Meta</button>
-                </form>
+        <div class="card" style="margin-bottom:20px;">
+            <div class="metas-tabs">
+                <button class="metas-tab active" data-metas-tab="tab-teto">🚫 Tetos de Gastos</button>
+                <button class="metas-tab" data-metas-tab="tab-poupanca">🏦 Metas de Poupança</button>
+                <button class="metas-tab" data-metas-tab="tab-alertas">🔔 Alertas Ativos</button>
             </div>
 
-            <div class="card">
-                <h2>📈 Minhas Metas</h2>
-                <div id="listaMetas" class="goal-progress">
-                    <div class="empty-state">Nenhuma meta registrada</div>
+            <!-- TAB: TETO DE GASTOS -->
+            <div id="tab-teto" class="metas-tab-content active">
+                <div class="two-column">
+                    <div>
+                        <h2>🚫 Definir Teto de Gastos</h2>
+                        <div class="success-message" id="mensagemSucessoTeto"></div>
+                        <div class="error-message" id="mensagemErroTeto"></div>
+                        <form id="formTeto">
+                            <div class="form-group">
+                                <label>Nome do Teto</label>
+                                <input type="text" id="nomeTeto" placeholder="Ex: Limite Alimentação" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoria de Gastos</label>
+                                <select id="categoriaTetoForm" required>
+                                    <option value="">Selecionar...</option>
+                                    <option value="alimentacao">🍔 Alimentação</option>
+                                    <option value="transporte">🚗 Transporte</option>
+                                    <option value="moradia">🏠 Moradia</option>
+                                    <option value="internet">📡 Internet/Telefone</option>
+                                    <option value="energia">⚡ Energia/Água</option>
+                                    <option value="saude">🏥 Saúde</option>
+                                    <option value="educacao">📚 Educação</option>
+                                    <option value="lazer">🎮 Lazer</option>
+                                    <option value="eletronicos">💻 Eletrônicos</option>
+                                    <option value="viagem">✈️ Viagem</option>
+                                    <option value="casa">🏡 Casa</option>
+                                    <option value="impostos">📋 Impostos</option>
+                                    <option value="ferramentas">🛠️ Ferramentas</option>
+                                    <option value="outro">📦 Outro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Teto</label>
+                                <select id="tipoTetoForm">
+                                    <option value="fixo">🔒 Teto Fixo Mensal</option>
+                                    <option value="reducao">📉 Meta de Redução</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor Máximo Mensal (R$)</label>
+                                <input type="number" id="valorTetoForm" step="0.01" min="0" placeholder="0,00" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="statusTetoForm">
+                                    <option value="ativa">✅ Ativa</option>
+                                    <option value="inativa">⏸️ Inativa</option>
+                                </select>
+                            </div>
+                            <div class="info-box" style="margin-bottom:13px;">
+                                ℹ️ O teto considera <strong>despesas à vista</strong> + <strong>parcelas de cartão</strong> da categoria no mês selecionado. Reinicia automaticamente todo mês.
+                            </div>
+                            <button type="submit" class="btn-primary">Salvar Teto</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h2>📊 Monitoramento do Mês</h2>
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                            <label style="text-transform:none;font-size:13px;white-space:nowrap;color:var(--gray-500);">Mês de referência:</label>
+                            <input type="month" id="mesTeto" style="flex:1;" onchange="app.renderTetoCards()">
+                        </div>
+                        <div id="tetoAlertas" style="margin-bottom:10px;"></div>
+                        <div id="tetoCards">
+                            <div class="empty-state">Nenhum teto cadastrado ainda</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: POUPANÇA -->
+            <div id="tab-poupanca" class="metas-tab-content">
+                <div class="two-column">
+                    <div>
+                        <h2>🏦 Criar Meta de Poupança</h2>
+                        <div class="success-message" id="mensagemSucessoMeta"></div>
+                        <form id="formMeta">
+                            <div class="form-group">
+                                <label>Nome da Meta</label>
+                                <input type="text" id="nomeMeta" placeholder="Ex: Reserva Emergência" required>
+                            </div>
+                            <div class="form-group" style="display:none;">
+                                <label>Tipo</label>
+                                <select id="tipoMeta">
+                                    <option value="poupanca">🏦 Poupança</option>
+                                    <option value="teto">🚫 Teto</option>
+                                </select>
+                            </div>
+                            <div id="camposMetaPoupanca">
+                                <div class="form-group">
+                                    <label>Valor Alvo (R$)</label>
+                                    <input type="number" id="valorMeta" step="0.01" min="0" placeholder="0,00">
+                                </div>
+                                <div class="form-group">
+                                    <label>Valor Atual (R$)</label>
+                                    <input type="number" id="valorAtualMeta" step="0.01" min="0" placeholder="0,00">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data Limite</label>
+                                    <input type="date" id="dataLimiteMeta">
+                                </div>
+                            </div>
+                            <div id="camposMetaTeto" style="display:none;">
+                                <div class="form-group">
+                                    <label>Categoria de Gastos</label>
+                                    <select id="categoriaTetoMeta">
+                                        <option value="alimentacao">🍔 Alimentação</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Teto Mensal (R$)</label>
+                                    <input type="number" id="valorTetoMeta" step="0.01" min="0" placeholder="0,00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea id="descricaoMeta" placeholder="Detalhes sobre a meta..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Criar Meta</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h2>📈 Minhas Metas de Poupança</h2>
+                        <div id="listaMetas" class="goal-progress">
+                            <div class="empty-state">Nenhuma meta registrada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ALERTAS -->
+            <div id="tab-alertas" class="metas-tab-content">
+                <h2>🔔 Central de Alertas</h2>
+                <div id="centralAlertas">
+                    <div class="empty-state">Nenhum alerta ativo</div>
                 </div>
             </div>
         </div>
@@ -798,6 +997,55 @@
             </div>
         </div>
     </section>
+    <!-- BACKUP -->
+    <section id="backup" class="section">
+        <div class="card" style="max-width:600px;margin:0 auto;">
+            <h2>💾 Backup e Restauração</h2>
+
+            <div style="margin-bottom:28px;">
+                <h3>📤 Exportar Dados</h3>
+                <p style="font-size:13px;color:var(--gray-500);margin-bottom:14px;line-height:1.6;">
+                    Gera um arquivo <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:12px;">.json</code> com todos os dados do app (receitas, despesas, cartões, metas, tetos). Salve em local seguro.
+                </p>
+                <button class="btn-primary" style="width:auto;padding:10px 24px;" onclick="app.exportarBackup()">📥 Exportar Dados (Backup)</button>
+                <div class="success-message" id="msgBackupExport" style="margin-top:12px;margin-bottom:0;"></div>
+            </div>
+
+            <div style="border-top:1px solid var(--gray-200);padding-top:24px;">
+                <h3>📥 Importar Dados</h3>
+                <p style="font-size:13px;color:var(--gray-500);margin-bottom:14px;line-height:1.6;">
+                    Restaura os dados a partir de um arquivo de backup. <strong style="color:var(--danger);">Atenção: os dados atuais serão substituídos após confirmação.</strong>
+                </p>
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                    <label for="inputBackupFile" style="
+                        display:inline-flex;align-items:center;gap:8px;
+                        padding:10px 20px;border-radius:var(--radius-sm);
+                        background:var(--gray-100);border:1.5px solid var(--gray-200);
+                        cursor:pointer;font-size:13px;font-weight:600;color:var(--gray-700);
+                        transition:all 0.2s;text-transform:none;letter-spacing:0;
+                    " onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+                       onmouseout="this.style.borderColor='var(--gray-200)';this.style.color='var(--gray-700)'">
+                        📂 Selecionar arquivo .json
+                    </label>
+                    <input type="file" id="inputBackupFile" accept=".json" style="display:none;" onchange="app.previewBackup(event)">
+                    <span id="backupFileName" style="font-size:12px;color:var(--gray-400);"></span>
+                </div>
+                <div id="backupPreview" style="display:none;margin-top:16px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px;">
+                    <div style="font-size:12px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:10px;">Conteúdo do arquivo</div>
+                    <div id="backupPreviewContent" style="font-size:13px;color:var(--gray-700);line-height:1.7;"></div>
+                    <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--gray-200);">
+                        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius-sm);padding:10px 13px;font-size:12.5px;color:#856404;font-weight:600;margin-bottom:12px;">
+                            ⚠️ Esta ação substituirá os dados atuais. Exporte um backup antes de continuar se desejar preservar os dados atuais.
+                        </div>
+                        <button class="btn-danger" style="width:auto;padding:10px 24px;" onclick="app.importarBackup()">🔄 Restaurar Dados Agora</button>
+                        <button class="btn-secondary" style="width:auto;padding:10px 16px;margin-left:8px;" onclick="app.cancelarImport()">Cancelar</button>
+                    </div>
+                </div>
+                <div class="error-message" id="msgBackupImportErro" style="margin-top:12px;margin-bottom:0;"></div>
+                <div class="success-message" id="msgBackupImportOk" style="margin-top:12px;margin-bottom:0;"></div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
@@ -817,6 +1065,7 @@ const app = {
         receitas: [],
         despesas: [],
         metas: [],
+        tetos: [],
         cartoes: [],
         compras: [],
         parcelas: [],
@@ -833,6 +1082,13 @@ const app = {
         this.listarDespesas('todas');
         this.listarMetas();
         this.atualizarTudoCartao();
+        // Init tetos
+        const agora = new Date();
+        const mesAtualStr = agora.toISOString().slice(0,7);
+        const meTetoEl = document.getElementById('mesTeto');
+        if (meTetoEl) meTetoEl.value = mesAtualStr;
+        this.renderTetoCards();
+        this.verificarAlertasTeto();
     },
 
     carregarDados() {
@@ -843,6 +1099,7 @@ const app = {
             this.dados.receitas = parsed.receitas || [];
             this.dados.despesas = parsed.despesas || [];
             this.dados.metas = parsed.metas || [];
+            this.dados.tetos = parsed.tetos || [];
         }
         // Carregar módulo cartão
         const dadosCartao = localStorage.getItem('cartaoApp');
@@ -857,12 +1114,15 @@ const app = {
         const dadosUnif = localStorage.getItem('financeiroUnificado');
         if (dadosUnif) {
             this.dados = JSON.parse(dadosUnif);
+            if (!this.dados.tetos) this.dados.tetos = [];
         }
     },
 
     salvarDados() {
+        if (!this.dados.tetos) this.dados.tetos = [];
         localStorage.setItem('financeiroUnificado', JSON.stringify(this.dados));
         // Manter compatibilidade com chaves antigas
+        if (this.dados.tetos === undefined) this.dados.tetos = [];
         localStorage.setItem('financasApp', JSON.stringify({
             receitas: this.dados.receitas,
             despesas: this.dados.despesas,
@@ -892,6 +1152,19 @@ const app = {
         document.getElementById('formReceita').addEventListener('submit', e => this.adicionarReceita(e));
         document.getElementById('formDespesa').addEventListener('submit', e => this.adicionarDespesa(e));
         document.getElementById('formMeta').addEventListener('submit', e => this.adicionarMeta(e));
+        document.getElementById('formTeto').addEventListener('submit', e => this.adicionarTeto(e));
+
+        // Metas tabs
+        document.querySelectorAll('[data-metas-tab]').forEach(btn => {
+            btn.addEventListener('click', e => {
+                document.querySelectorAll('[data-metas-tab]').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.metas-tab-content').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                document.getElementById(e.target.dataset.metasTab).classList.add('active');
+                if (e.target.dataset.metasTab === 'tab-alertas') app.renderCentralAlertas();
+                if (e.target.dataset.metasTab === 'tab-teto') app.renderTetoCards();
+            });
+        });
         document.getElementById('formCartao').addEventListener('submit', e => this.adicionarCartao(e));
         document.getElementById('formCompra').addEventListener('submit', e => this.adicionarCompra(e));
 
@@ -933,6 +1206,7 @@ const app = {
         if (id === 'relatorios') this.atualizarRelatorio();
         if (id === 'cartoes') this.atualizarTudoCartao();
         if (id === 'dashboard') this.atualizarDashboard();
+        if (id === 'metas') { this.listarMetas(); this.renderTetoCards(); this.renderCentralAlertas(); }
     },
 
     mudarSubSecao(id, btn) {
@@ -1036,6 +1310,8 @@ const app = {
         e.target.reset();
         this.setarDataAtual();
         this.mostrarMensagem('mensagemSucessoDespesa', '✓ Despesa adicionada com sucesso!');
+        this.verificarAlertasTeto();
+        this.renderTetoCards();
         this.atualizarDashboard();
         this.listarDespesas('todas');
     },
@@ -1113,27 +1389,7 @@ const app = {
         this.listarMetas();
     },
 
-    // Calcular gasto mensal de uma categoria (despesas + parcelas de cartão)
-    calcularGastoCategoriaNoMes(categoria, mes, ano) {
-        // Despesas à vista no mês
-        const despesasDiretas = this.dados.despesas
-            .filter(d => {
-                const dd = new Date(d.data + 'T00:00:00');
-                return d.categoria === categoria && dd.getMonth() === mes && dd.getFullYear() === ano;
-            })
-            .reduce((sum, d) => sum + d.valor, 0);
-
-        // Parcelas de cartão no mês com a categoria
-        const parcelasCartao = this.dados.parcelas
-            .filter(p => {
-                if (p.mes !== mes || p.ano !== ano || p.status === 'fechada') return false;
-                const compra = this.dados.compras.find(c => c.id === p.compraId);
-                return compra && compra.categoria === categoria && compra.status === 'ativa';
-            })
-            .reduce((sum, p) => sum + p.valor, 0);
-
-        return despesasDiretas + parcelasCartao;
-    },
+    // calcularGastoCategoriaNoMes moved to Teto section above
 
     listarMetas() {
         const container = document.getElementById('listaMetas');
@@ -1249,6 +1505,9 @@ const app = {
         this.atualizarUltimasTransacoes();
         this.atualizarChartCategorias();
         this.atualizarMetasResume();
+        if (document.getElementById('tab-teto') && document.getElementById('tab-teto').classList.contains('active')) {
+            this.renderTetoCards();
+        }
     },
 
     calcularFaturaDoMes(mes, ano) {
@@ -1504,6 +1763,7 @@ const app = {
         this.gerarParcelas(compra);
         this.salvarDados();
         this.mostrarSucesso('msgSuccessPurchase', '✓ Compra registrada com sucesso!');
+        this.verificarAlertasTeto();
         e.target.reset();
         this.setarDataAtual();
         this.atualizarTudoCartao();
@@ -1900,6 +2160,314 @@ const app = {
         setTimeout(() => janela.print(), 250);
     },
 
+    // ====================== TETO DE GASTOS ======================
+
+    adicionarTeto(e) {
+        e.preventDefault();
+        const nome = document.getElementById('nomeTeto').value.trim();
+        const categoria = document.getElementById('categoriaTetoForm').value;
+        const tipo = document.getElementById('tipoTetoForm').value;
+        const teto = parseFloat(document.getElementById('valorTetoForm').value);
+        const status = document.getElementById('statusTetoForm').value;
+
+        if (!nome || !categoria || !teto || teto <= 0) {
+            this.mostrarErro('mensagemErroTeto', 'Preencha todos os campos corretamente.');
+            return;
+        }
+
+        // Impedir duplicata ativa da mesma categoria
+        const jaExiste = this.dados.tetos.find(t => t.categoria === categoria && t.status === 'ativa');
+        if (jaExiste) {
+            this.mostrarErro('mensagemErroTeto', 'Já existe um teto ativo para esta categoria. Desative o anterior primeiro.');
+            return;
+        }
+
+        const novoTeto = {
+            id: Date.now(),
+            nome,
+            categoria,
+            tipo,        // 'fixo' | 'reducao'
+            teto,
+            status       // 'ativa' | 'inativa'
+        };
+        if (!this.dados.tetos) this.dados.tetos = [];
+        this.dados.tetos.push(novoTeto);
+        this.salvarDados();
+        document.getElementById('formTeto').reset();
+        this.mostrarMensagem('mensagemSucessoTeto', '✓ Teto cadastrado com sucesso!');
+        this.renderTetoCards();
+        this.verificarAlertasTeto();
+        this.atualizarDashboard();
+    },
+
+    // Calcula gastos de uma categoria em um mês/ano específico
+    // Inclui: despesas diretas + parcelas de cartão
+    calcularGastoCategoriaNoMes(categoria, mes, ano) {
+        // Despesas à vista no mês
+        const despesasDiretas = this.dados.despesas
+            .filter(d => {
+                const dd = new Date(d.data + 'T00:00:00');
+                return d.categoria === categoria
+                    && dd.getMonth() === mes
+                    && dd.getFullYear() === ano;
+            })
+            .reduce((sum, d) => sum + d.valor, 0);
+
+        // Parcelas de cartão do mês com a categoria (sem duplicatas)
+        const parcelasCartao = this.dados.parcelas
+            .filter(p => {
+                if (p.mes !== mes || p.ano !== ano || p.status === 'fechada') return false;
+                const compra = this.dados.compras.find(c => c.id === p.compraId);
+                return compra && compra.categoria === categoria && compra.status === 'ativa';
+            })
+            .reduce((sum, p) => sum + p.valor, 0);
+
+        return this.arredondarMoeda(despesasDiretas + parcelasCartao);
+    },
+
+    // Retorna { totalGasto, percentual, restante, status } para um teto num mês
+    calcularStatusTeto(teto, mes, ano) {
+        if (!teto || !teto.categoria) return null;
+        const totalGasto = this.calcularGastoCategoriaNoMes(teto.categoria, mes, ano);
+        const percentual = teto.teto > 0 ? (totalGasto / teto.teto) * 100 : 0;
+        const restante = this.arredondarMoeda(teto.teto - totalGasto);
+        let status = 'safe';
+        if (percentual >= 100) status = 'over';
+        else if (percentual >= 90) status = 'warn90';
+        else if (percentual >= 70) status = 'warn70';
+        return { totalGasto, percentual, restante, status };
+    },
+
+    // Calcula gastos dos últimos 4 meses para histórico
+    calcularHistoricoTeto(teto) {
+        const agora = new Date();
+        const hist = [];
+        for (let i = 3; i >= 0; i--) {
+            let mes = agora.getMonth() - i;
+            let ano = agora.getFullYear();
+            if (mes < 0) { mes += 12; ano--; }
+            const gasto = this.calcularGastoCategoriaNoMes(teto.categoria, mes, ano);
+            const pct = teto.teto > 0 ? (gasto / teto.teto) * 100 : 0;
+            const label = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'short' });
+            hist.push({ mes, ano, gasto, pct, label });
+        }
+        return hist;
+    },
+
+    renderTetoCards() {
+        if (!this.dados.tetos) this.dados.tetos = [];
+        const container = document.getElementById('tetoCards');
+        const alertasEl = document.getElementById('tetoAlertas');
+        if (!container) return;
+
+        // Mes de referência
+        const mesTetoEl = document.getElementById('mesTeto');
+        let mes, ano;
+        if (mesTetoEl && mesTetoEl.value) {
+            const [aStr, mStr] = mesTetoEl.value.split('-');
+            ano = parseInt(aStr); mes = parseInt(mStr) - 1;
+        } else {
+            const agora = new Date();
+            mes = agora.getMonth(); ano = agora.getFullYear();
+        }
+
+        const tetoAtivos = this.dados.tetos.filter(t => t.status === 'ativa');
+
+        if (tetoAtivos.length === 0) {
+            container.innerHTML = '<div class="empty-state">Nenhum teto ativo cadastrado</div>';
+            if (alertasEl) alertasEl.innerHTML = '';
+            return;
+        }
+
+        // Renderizar alertas inline
+        const alertas = [];
+        tetoAtivos.forEach(t => {
+            const s = this.calcularStatusTeto(t, mes, ano);
+            if (!s) return;
+            if (s.status === 'over') {
+                alertas.push(`<div class="alerta-inline a100">🚨 <span><strong>${t.nome}</strong> — Teto estourado! Gasto: R$ ${this.formatarMoeda(s.totalGasto)} (${s.percentual.toFixed(0)}% do limite de R$ ${this.formatarMoeda(t.teto)})</span></div>`);
+            } else if (s.status === 'warn90') {
+                alertas.push(`<div class="alerta-inline a90">⚠️ <span><strong>${t.nome}</strong> — 90% do teto atingido! Restam apenas R$ ${this.formatarMoeda(s.restante)}</span></div>`);
+            } else if (s.status === 'warn70') {
+                alertas.push(`<div class="alerta-inline a70">💡 <span><strong>${t.nome}</strong> — 70% do teto atingido. Restam R$ ${this.formatarMoeda(s.restante)}</span></div>`);
+            }
+        });
+        if (alertasEl) alertasEl.innerHTML = alertas.join('');
+
+        // Renderizar cards
+        const maxPct = 36; // px máximo para barras do histograma
+        container.innerHTML = '<div class="teto-grid">' + tetoAtivos.map(t => {
+            const s = this.calcularStatusTeto(t, mes, ano);
+            if (!s) return '';
+            const hist = this.calcularHistoricoTeto(t);
+            const maxHistGasto = Math.max(...hist.map(h => h.gasto), t.teto, 0.01);
+
+            let borderClass = 'border-safe';
+            let pctClass = 'pct-safe';
+            let badgeCls = 'teto-ok'; let badgeLabel = '✓ OK';
+            if (s.status === 'over') { borderClass = 'border-over'; pctClass = 'pct-over'; badgeCls = 'teto-estourado'; badgeLabel = '🚨 Estourado'; }
+            else if (s.status === 'warn90') { borderClass = 'border-warn90'; pctClass = 'pct-warn90'; badgeCls = 'teto-alerta90'; badgeLabel = '⚠️ Alerta 90%'; }
+            else if (s.status === 'warn70') { borderClass = 'border-warn70'; pctClass = 'pct-warn70'; badgeCls = 'teto-alerta70'; badgeLabel = '💡 Alerta 70%'; }
+
+            const barPct = Math.min(s.percentual, 100);
+            let barFill = 'progress-fill pct-safe';
+            if (s.status === 'over') barFill = 'progress-fill over';
+            else if (s.status === 'warn90') barFill = 'progress-fill' + '" style="background:linear-gradient(90deg,#ea580c,#f97316)';
+            else if (s.status === 'warn70') barFill = 'progress-fill' + '" style="background:linear-gradient(90deg,#d69e2e,#fbbf24)';
+
+            const histBars = hist.map(h => {
+                const hHeight = Math.max(Math.round((h.gasto / maxHistGasto) * maxPct), 2);
+                const hClass = h.pct >= 100 ? 'h-over' : h.pct >= 70 ? 'h-warn' : 'h-safe';
+                return `<div class="hist-bar-wrap"><div class="hist-bar ${hClass}" style="height:${hHeight}px;"></div><div class="hist-label">${h.label}</div></div>`;
+            }).join('');
+
+            const tipoLabel = t.tipo === 'reducao' ? '📉 Redução' : '🔒 Fixo';
+
+            return `
+            <div class="teto-card ${borderClass}">
+                <div class="teto-card-header">
+                    <div>
+                        <div class="teto-card-title">${CATEGORIAS_EMOJI[t.categoria] || ''} ${t.nome}</div>
+                        <div class="teto-card-cat">${tipoLabel} • ${t.categoria} <span class="teto-badge ${badgeCls}">${badgeLabel}</span></div>
+                    </div>
+                    <div class="teto-card-pct ${pctClass}">${Math.min(s.percentual, 999).toFixed(0)}%</div>
+                </div>
+                <div class="progress-bar" style="margin-bottom:6px;">
+                    <div class="${barFill}" style="width:${barPct}%;"></div>
+                </div>
+                <div class="teto-card-values">
+                    <div class="teto-val-item">
+                        <div class="teto-val-label">Gasto</div>
+                        <div class="teto-val-value">R$ ${this.formatarMoeda(s.totalGasto)}</div>
+                    </div>
+                    <div class="teto-val-item">
+                        <div class="teto-val-label">Teto</div>
+                        <div class="teto-val-value">R$ ${this.formatarMoeda(t.teto)}</div>
+                    </div>
+                    <div class="teto-val-item">
+                        <div class="teto-val-label">Restante</div>
+                        <div class="teto-val-value" style="color:${s.restante < 0 ? 'var(--danger)' : 'var(--success)'}">R$ ${this.formatarMoeda(Math.abs(s.restante))}${s.restante < 0 ? ' ↑' : ''}</div>
+                    </div>
+                    <div class="teto-val-item">
+                        <div class="teto-val-label">Disponível</div>
+                        <div class="teto-val-value" style="color:var(--gray-500);">${s.restante < 0 ? 'Estourado' : this.formatarMoeda((s.restante / t.teto) * 100).split(',')[0] + '%'}</div>
+                    </div>
+                </div>
+                <div class="teto-card-hist">
+                    <div class="teto-card-hist-title">Últimos 4 meses</div>
+                    <div class="hist-bars">${histBars}</div>
+                </div>
+                <div class="teto-card-actions">
+                    <button class="btn-warning btn-small" onclick="app.toggleTeto(${t.id})">Desativar</button>
+                    <button class="btn-danger btn-small" onclick="app.deletarTeto(${t.id})">Deletar</button>
+                </div>
+            </div>`;
+        }).join('') + '</div>';
+    },
+
+    toggleTeto(id) {
+        if (!this.dados.tetos) return;
+        const t = this.dados.tetos.find(t => t.id === id);
+        if (t) {
+            t.status = t.status === 'ativa' ? 'inativa' : 'ativa';
+            this.salvarDados();
+            this.renderTetoCards();
+        }
+    },
+
+    deletarTeto(id) {
+        if (confirm('Deseja deletar este teto de gastos?')) {
+            this.dados.tetos = this.dados.tetos.filter(t => t.id !== id);
+            this.salvarDados();
+            this.renderTetoCards();
+            this.renderCentralAlertas();
+        }
+    },
+
+    // Dispara toasts de alerta ao carregar / após salvar despesa
+    verificarAlertasTeto() {
+        if (!this.dados.tetos) return;
+        const agora = new Date();
+        const mes = agora.getMonth();
+        const ano = agora.getFullYear();
+        const alertasVisualizados = JSON.parse(sessionStorage.getItem('alertasToastVis') || '{}');
+
+        this.dados.tetos.filter(t => t.status === 'ativa').forEach(t => {
+            const s = this.calcularStatusTeto(t, mes, ano);
+            if (!s) return;
+
+            const keyBase = `${t.id}-${ano}-${mes}`;
+            const nivelAtual = s.status; // safe | warn70 | warn90 | over
+
+            // Só dispara toast se não foi mostrado nesta sessão para este nível
+            if (nivelAtual === 'over' && alertasVisualizados[keyBase] !== 'over') {
+                this.mostrarToastAlerta('alerta-100', '🚨', 'Teto Estourado!', `${t.nome} ultrapassou 100% — R$ ${this.formatarMoeda(s.totalGasto)} de R$ ${this.formatarMoeda(t.teto)}`);
+                alertasVisualizados[keyBase] = 'over';
+            } else if (nivelAtual === 'warn90' && !['over','warn90'].includes(alertasVisualizados[keyBase])) {
+                this.mostrarToastAlerta('alerta-90', '⚠️', 'Atenção: 90%', `${t.nome} está em ${s.percentual.toFixed(0)}% — restam R$ ${this.formatarMoeda(s.restante)}`);
+                alertasVisualizados[keyBase] = 'warn90';
+            } else if (nivelAtual === 'warn70' && !alertasVisualizados[keyBase]) {
+                this.mostrarToastAlerta('alerta-70', '💡', 'Aviso: 70%', `${t.nome} atingiu ${s.percentual.toFixed(0)}% do limite mensal`);
+                alertasVisualizados[keyBase] = 'warn70';
+            }
+        });
+        sessionStorage.setItem('alertasToastVis', JSON.stringify(alertasVisualizados));
+    },
+
+    mostrarToastAlerta(cls, icon, titulo, msg) {
+        const cont = document.getElementById('alertasContainer');
+        if (!cont) return;
+        const toast = document.createElement('div');
+        toast.className = `alerta-toast ${cls}`;
+        toast.innerHTML = `
+            <div class="alerta-toast-icon">${icon}</div>
+            <div class="alerta-toast-body">
+                <div class="alerta-toast-title">${titulo}</div>
+                <div class="alerta-toast-msg">${msg}</div>
+            </div>
+            <button class="alerta-toast-close" onclick="this.parentElement.remove()">✕</button>`;
+        cont.appendChild(toast);
+        // Auto-fechar após 7s
+        setTimeout(() => { if (toast.parentElement) toast.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 7000);
+    },
+
+    renderCentralAlertas() {
+        if (!this.dados.tetos) { this.dados.tetos = []; return; }
+        const container = document.getElementById('centralAlertas');
+        if (!container) return;
+        const agora = new Date();
+        const mes = agora.getMonth();
+        const ano = agora.getFullYear();
+
+        const tetoAtivos = this.dados.tetos.filter(t => t.status === 'ativa');
+        if (tetoAtivos.length === 0) {
+            container.innerHTML = '<div class="empty-state">Nenhum teto ativo para monitorar</div>';
+            return;
+        }
+
+        const items = tetoAtivos.map(t => {
+            const s = this.calcularStatusTeto(t, mes, ano);
+            if (!s) return '';
+            let cls = '', icon = '✅', msg = `Dentro do limite — ${s.percentual.toFixed(0)}% usado`;
+            if (s.status === 'over') { cls = 'a100'; icon = '🚨'; msg = `ESTOURADO — ${s.percentual.toFixed(0)}% usado! Excedeu R$ ${this.formatarMoeda(Math.abs(s.restante))}`; }
+            else if (s.status === 'warn90') { cls = 'a90'; icon = '⚠️'; msg = `90% atingido — ${s.percentual.toFixed(0)}% usado. Restam R$ ${this.formatarMoeda(s.restante)}`; }
+            else if (s.status === 'warn70') { cls = 'a70'; icon = '💡'; msg = `70% atingido — ${s.percentual.toFixed(0)}% usado. Restam R$ ${this.formatarMoeda(s.restante)}`; }
+
+            return `<div class="alerta-inline ${cls}" style="margin-bottom:8px;">
+                <span style="font-size:18px;">${icon}</span>
+                <div>
+                    <div style="font-weight:700;font-size:13px;">${CATEGORIAS_EMOJI[t.categoria] || ''} ${t.nome}</div>
+                    <div style="font-size:12px;font-weight:500;opacity:0.8;margin-top:2px;">${msg}</div>
+                    <div class="progress-bar" style="margin-top:6px;height:6px;">
+                        <div class="progress-fill ${s.status === 'over' ? 'over' : ''}" style="width:${Math.min(s.percentual,100)}%;${s.status==='warn90'?'background:linear-gradient(90deg,#ea580c,#f97316)':s.status==='warn70'?'background:linear-gradient(90deg,#d69e2e,#fbbf24)':''}"></div>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        container.innerHTML = items || '<div class="empty-state">Todos os tetos estão dentro do limite ✅</div>';
+    },
+
     // ====================== UTILITÁRIOS ======================
     mostrarMensagem(id, texto) {
         const el = document.getElementById(id);
@@ -1932,6 +2500,91 @@ const app = {
 
     arredondarMoeda(valor) {
         return Math.round(valor * 100) / 100;
+    },
+
+    // ====================== BACKUP ======================
+
+    // Chaves do localStorage usadas pelo app
+    _backupKeys: ['financeiroUnificado', 'financasApp', 'cartaoApp'],
+
+    exportarBackup() {
+        const backup = { _meta: { versao: '1.0', exportadoEm: new Date().toISOString(), app: 'Controle Financeiro' }, dados: {} };
+        this._backupKeys.forEach(chave => {
+            const val = localStorage.getItem(chave);
+            if (val !== null) backup.dados[chave] = JSON.parse(val);
+        });
+        const json = JSON.stringify(backup, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const now = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        const nome = `backup-controle-financeiro-${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}.json`;
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = nome;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.mostrarMensagem('msgBackupExport', `✓ Backup exportado: ${nome}`);
+    },
+
+    _backupPendente: null,
+
+    previewBackup(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        document.getElementById('backupFileName').textContent = file.name;
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const backup = JSON.parse(e.target.result);
+                if (!backup.dados) { this.mostrarErro('msgBackupImportErro', 'Arquivo inválido: estrutura não reconhecida.'); return; }
+                this._backupPendente = backup;
+                // Montar preview
+                const linhas = [];
+                this._backupKeys.forEach(chave => {
+                    if (backup.dados[chave]) {
+                        const d = backup.dados[chave];
+                        const contagens = [];
+                        if (d.receitas) contagens.push(`${d.receitas.length} receita(s)`);
+                        if (d.despesas) contagens.push(`${d.despesas.length} despesa(s)`);
+                        if (d.metas) contagens.push(`${d.metas.length} meta(s)`);
+                        if (d.tetos) contagens.push(`${d.tetos.length} teto(s)`);
+                        if (d.cartoes) contagens.push(`${d.cartoes.length} cartão/ões`);
+                        if (d.compras) contagens.push(`${d.compras.length} compra(s)`);
+                        linhas.push(`<div style="padding:3px 0;"><strong style="color:var(--gray-900);">${chave}</strong>: ${contagens.join(', ') || 'dados presentes'}</div>`);
+                    }
+                });
+                if (backup._meta) linhas.unshift(`<div style="padding:3px 0;color:var(--gray-400);font-size:11.5px;">Exportado em: ${new Date(backup._meta.exportadoEm).toLocaleString('pt-BR')}</div>`);
+                document.getElementById('backupPreviewContent').innerHTML = linhas.join('');
+                document.getElementById('backupPreview').style.display = 'block';
+                document.getElementById('msgBackupImportErro').classList.remove('show');
+            } catch(err) {
+                this.mostrarErro('msgBackupImportErro', 'Arquivo inválido ou corrompido.');
+                this._backupPendente = null;
+            }
+        };
+        reader.readAsText(file);
+    },
+
+    importarBackup() {
+        if (!this._backupPendente) { this.mostrarErro('msgBackupImportErro', 'Nenhum arquivo selecionado.'); return; }
+        const confirmar = confirm('⚠️ Isso substituirá os dados atuais pelo backup selecionado.\n\nDeseja continuar?');
+        if (!confirmar) return;
+        const backup = this._backupPendente;
+        this._backupKeys.forEach(chave => {
+            if (backup.dados[chave] !== undefined) {
+                localStorage.setItem(chave, JSON.stringify(backup.dados[chave]));
+            }
+        });
+        alert('✓ Dados restaurados com sucesso! O app será recarregado.');
+        location.reload();
+    },
+
+    cancelarImport() {
+        this._backupPendente = null;
+        document.getElementById('backupPreview').style.display = 'none';
+        document.getElementById('backupFileName').textContent = '';
+        document.getElementById('inputBackupFile').value = '';
     }
 };
 
