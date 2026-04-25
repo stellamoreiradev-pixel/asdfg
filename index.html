@@ -1515,14 +1515,45 @@
             </div>
 
             <div class="card">
-                <h2>💰 Minhas Receitas</h2>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+                    <div>
+                        <h2 style="margin-bottom:6px;">Receitas do Período</h2>
+                        <div id="receitasPeriodoResumo" style="font-size:12px;color:var(--gray-500);">Exibindo receitas do período atual.</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        <button class="btn-secondary btn-small" type="button" onclick="app.navegarReceitasMes(-1)">&lt; Mês anterior</button>
+                        <input type="month" id="receitasPeriodoInput" onchange="app.setSelectedMonth('receitas', this.value)" style="width:auto;min-width:145px;">
+                        <button class="btn-secondary btn-small" type="button" onclick="app.navegarReceitasMes(1)">Próximo mês &gt;</button>
+                    </div>
+                </div>
+                <div class="summary" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:16px;">
+                    <div class="summary-card income">
+                        <h3>Total do período</h3>
+                        <div class="value" id="receitasPeriodoTotal">R$ 0,00</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Quantidade</h3>
+                        <div class="value" id="receitasPeriodoQuantidade">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Comparação</h3>
+                        <div class="value" id="receitasPeriodoComparacao">R$ 0,00</div>
+                        <div id="receitasPeriodoComparacaoMeta" style="font-size:12px;color:var(--gray-500);margin-top:8px;">Aguardando base anterior.</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom:16px;background:var(--gray-50);">
+                    <h3 style="margin-top:0;">Receitas por categoria / origem</h3>
+                    <div id="receitasPeriodoCategorias">
+                        <div class="empty-state">Sem dados para exibir</div>
+                    </div>
+                </div>
                 <div class="filter-container">
                     <button class="filter-btn active" data-filter="todas">Todas</button>
                     <button class="filter-btn" data-filter="recebido">Recebidas</button>
                     <button class="filter-btn" data-filter="pendente">Pendentes</button>
                 </div>
                 <div class="list-container" id="listaReceitas">
-                    <div class="empty-state">Nenhuma receita registrada</div>
+                    <div class="empty-state">Você ainda não tem receitas cadastradas neste mês.</div>
                 </div>
             </div>
         </div>
@@ -1569,14 +1600,45 @@
             </div>
 
             <div class="card">
-                <h2>📊 Minhas Despesas</h2>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+                    <div>
+                        <h2 style="margin-bottom:6px;">Despesas do Período</h2>
+                        <div id="despesasPeriodoResumo" style="font-size:12px;color:var(--gray-500);">Exibindo despesas do período atual.</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        <button class="btn-secondary btn-small" type="button" onclick="app.navegarDespesasMes(-1)">&lt; Mês anterior</button>
+                        <input type="month" id="despesasPeriodoInput" onchange="app.setSelectedMonth('despesas', this.value)" style="width:auto;min-width:145px;">
+                        <button class="btn-secondary btn-small" type="button" onclick="app.navegarDespesasMes(1)">Próximo mês &gt;</button>
+                    </div>
+                </div>
+                <div class="summary" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:16px;">
+                    <div class="summary-card expense">
+                        <h3>Total do período</h3>
+                        <div class="value" id="despesasPeriodoTotal">R$ 0,00</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Quantidade</h3>
+                        <div class="value" id="despesasPeriodoQuantidade">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Comparação</h3>
+                        <div class="value" id="despesasPeriodoComparacao">R$ 0,00</div>
+                        <div id="despesasPeriodoComparacaoMeta" style="font-size:12px;color:var(--gray-500);margin-top:8px;">Aguardando base anterior.</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom:16px;background:var(--gray-50);">
+                    <h3 style="margin-top:0;">Despesas por categoria</h3>
+                    <div id="despesasPeriodoCategorias">
+                        <div class="empty-state">Sem dados para exibir</div>
+                    </div>
+                </div>
                 <div class="filter-container">
                     <button class="filter-btn active" data-filter-despesa="todas">Todas</button>
                     <button class="filter-btn" data-filter-despesa="fixa">Fixas</button>
                     <button class="filter-btn" data-filter-despesa="variavel">Variáveis</button>
                 </div>
                 <div class="list-container" id="listaDespesas">
-                    <div class="empty-state">Nenhuma despesa registrada</div>
+                    <div class="empty-state">Você ainda não tem despesas cadastradas neste mês.</div>
                 </div>
             </div>
         </div>
@@ -7370,6 +7432,341 @@ app.renderizarDependenciasDespesa = function() {
     renderDependenciasDespesaComparativosBase();
     if (typeof this.renderComparativos === 'function') this.renderComparativos();
 };
+</script>
+<script>
+app.currentReceitaFilter = app.currentReceitaFilter || 'todas';
+app.currentDespesaFilter = app.currentDespesaFilter || 'todas';
+app.receitasPeriodoSelecionado = app.receitasPeriodoSelecionado || null;
+app.despesasPeriodoSelecionado = app.despesasPeriodoSelecionado || null;
+
+app.getSelectedMonth = function(contexto = 'dashboard') {
+    if (contexto === 'receitas') {
+        if (!this.receitasPeriodoSelecionado) this.receitasPeriodoSelecionado = this.obterCompetenciaAtual();
+        return this.receitasPeriodoSelecionado;
+    }
+    if (contexto === 'despesas') {
+        if (!this.despesasPeriodoSelecionado) this.despesasPeriodoSelecionado = this.obterCompetenciaAtual();
+        return this.despesasPeriodoSelecionado;
+    }
+    return typeof this.obterDashboardPeriodoSelecionado === 'function'
+        ? this.obterDashboardPeriodoSelecionado()
+        : this.obterCompetenciaAtual();
+};
+
+app.setSelectedMonth = function(contexto, competencia) {
+    const normalizado = this.normalizarCompetenciaValor(competencia);
+    if (!normalizado) return;
+
+    if (contexto === 'receitas') {
+        this.receitasPeriodoSelecionado = normalizado;
+        this.renderReceitasPeriodo();
+        return;
+    }
+
+    if (contexto === 'despesas') {
+        this.despesasPeriodoSelecionado = normalizado;
+        this.renderDespesasPeriodo();
+        return;
+    }
+
+    if (typeof this.setDashboardPeriodoSelecionado === 'function') {
+        this.setDashboardPeriodoSelecionado(normalizado);
+    }
+};
+
+app.filtrarPorMesAno = function(registros, competencia) {
+    const periodo = this.normalizarCompetenciaValor(competencia) || this.obterCompetenciaAtual();
+    return (registros || []).filter(item => this.obterCompetenciaRegistro(item) === periodo);
+};
+
+app.calcularTotalDoPeriodo = function(registros) {
+    return (registros || []).reduce((soma, item) => soma + (parseFloat(item.valor) || 0), 0);
+};
+
+app.obterCompetenciaAnterior = function(competencia) {
+    const data = this.obterDataCompetencia(competencia);
+    data.setMonth(data.getMonth() - 1);
+    return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}`;
+};
+
+app.navegarReceitasMes = function(deslocamento) {
+    const data = this.obterDataCompetencia(this.getSelectedMonth('receitas'));
+    data.setMonth(data.getMonth() + deslocamento);
+    this.setSelectedMonth('receitas', `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}`);
+};
+
+app.navegarDespesasMes = function(deslocamento) {
+    const data = this.obterDataCompetencia(this.getSelectedMonth('despesas'));
+    data.setMonth(data.getMonth() + deslocamento);
+    this.setSelectedMonth('despesas', `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}`);
+};
+
+app.obterReceitasDoPeriodoSecao = function(competencia = this.getSelectedMonth('receitas')) {
+    return this.filtrarPorMesAno(this.dados.receitas, competencia)
+        .sort((a, b) => new Date(b.data) - new Date(a.data));
+};
+
+app.obterDespesasDoPeriodoSecao = function(competencia = this.getSelectedMonth('despesas')) {
+    return this.filtrarPorMesAno(this.dados.despesas, competencia)
+        .sort((a, b) => new Date(b.data) - new Date(a.data));
+};
+
+app.aplicarFiltroReceitaPeriodo = function(receitas, filtro = this.currentReceitaFilter || 'todas') {
+    if (filtro === 'todas') return [...receitas];
+    return receitas.filter(receita => receita.status === filtro);
+};
+
+app.aplicarFiltroDespesaPeriodo = function(despesas, filtro = this.currentDespesaFilter || 'todas') {
+    if (filtro === 'todas') return [...despesas];
+    return despesas.filter(despesa => despesa.tipo === filtro);
+};
+
+app.renderizarResumoCategoriasReceita = function(receitas) {
+    const container = document.getElementById('receitasPeriodoCategorias');
+    if (!container) return;
+
+    if (!receitas.length) {
+        container.innerHTML = '<div class="empty-state">Sem dados para exibir</div>';
+        return;
+    }
+
+    const grupos = Object.values(receitas.reduce((acc, receita) => {
+        if (!acc[receita.categoria]) {
+            acc[receita.categoria] = {
+                categoria: receita.categoria,
+                total: 0,
+                quantidade: 0,
+                origens: new Set()
+            };
+        }
+        acc[receita.categoria].total += parseFloat(receita.valor) || 0;
+        acc[receita.categoria].quantidade += 1;
+        if (receita.descricao) acc[receita.categoria].origens.add(receita.descricao);
+        return acc;
+    }, {})).sort((a, b) => b.total - a.total);
+
+    const maior = grupos[0]?.total || 0;
+    container.innerHTML = grupos.map(grupo => {
+        const largura = maior > 0 ? (grupo.total / maior) * 100 : 0;
+        const origens = [...grupo.origens].slice(0, 2).join(', ');
+        return `
+            <div style="margin-bottom:12px;">
+                <div class="chart-bar">
+                    <div class="chart-label">${this._resolveEmoji(grupo.categoria)} ${grupo.categoria}</div>
+                    <div class="chart-bar-bg"><div class="chart-bar-fill" style="width:${largura.toFixed(1)}%;"></div></div>
+                    <div class="chart-value">R$ ${this.formatarMoeda(grupo.total)}</div>
+                </div>
+                <div style="font-size:11px;color:var(--gray-500);margin-left:120px;">
+                    ${grupo.quantidade} receita(s)${origens ? ` • Origens: ${origens}` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+};
+
+app.renderizarResumoCategoriasDespesa = function(despesas) {
+    const container = document.getElementById('despesasPeriodoCategorias');
+    if (!container) return;
+
+    if (!despesas.length) {
+        container.innerHTML = '<div class="empty-state">Sem dados para exibir</div>';
+        return;
+    }
+
+    const grupos = Object.values(despesas.reduce((acc, despesa) => {
+        if (!acc[despesa.categoria]) {
+            acc[despesa.categoria] = {
+                categoria: despesa.categoria,
+                total: 0,
+                quantidade: 0
+            };
+        }
+        acc[despesa.categoria].total += parseFloat(despesa.valor) || 0;
+        acc[despesa.categoria].quantidade += 1;
+        return acc;
+    }, {})).sort((a, b) => b.total - a.total);
+
+    const totalPeriodo = this.calcularTotalDoPeriodo(despesas);
+    const maior = grupos[0]?.total || 0;
+    container.innerHTML = grupos.map(grupo => {
+        const largura = maior > 0 ? (grupo.total / maior) * 100 : 0;
+        const percentual = totalPeriodo > 0 ? (grupo.total / totalPeriodo) * 100 : 0;
+        return `
+            <div style="margin-bottom:12px;">
+                <div class="chart-bar">
+                    <div class="chart-label">${this._resolveEmoji(grupo.categoria)} ${grupo.categoria}</div>
+                    <div class="chart-bar-bg"><div class="chart-bar-fill" style="width:${largura.toFixed(1)}%;"></div></div>
+                    <div class="chart-value">R$ ${this.formatarMoeda(grupo.total)}</div>
+                </div>
+                <div style="font-size:11px;color:var(--gray-500);margin-left:120px;">
+                    ${grupo.quantidade} despesa(s) • ${percentual.toFixed(1)}% do total do período
+                </div>
+            </div>
+        `;
+    }).join('');
+};
+
+app.renderReceitasPeriodo = function() {
+    const competencia = this.getSelectedMonth('receitas');
+    const receitasPeriodo = this.obterReceitasDoPeriodoSecao(competencia);
+    const receitasFiltradas = this.aplicarFiltroReceitaPeriodo(receitasPeriodo, this.currentReceitaFilter);
+    const competenciaAnterior = this.obterCompetenciaAnterior(competencia);
+    const receitasPeriodoAnterior = this.obterReceitasDoPeriodoSecao(competenciaAnterior);
+    const totalAtual = this.calcularTotalDoPeriodo(receitasPeriodo);
+    const totalAnterior = this.calcularTotalDoPeriodo(receitasPeriodoAnterior);
+    const diferenca = totalAtual - totalAnterior;
+    const tendencia = Math.abs(diferenca) < 0.01 ? 'Estabilidade' : diferenca > 0 ? 'Alta' : 'Queda';
+
+    const input = document.getElementById('receitasPeriodoInput');
+    const resumo = document.getElementById('receitasPeriodoResumo');
+    const totalEl = document.getElementById('receitasPeriodoTotal');
+    const quantidadeEl = document.getElementById('receitasPeriodoQuantidade');
+    const comparacaoEl = document.getElementById('receitasPeriodoComparacao');
+    const comparacaoMetaEl = document.getElementById('receitasPeriodoComparacaoMeta');
+    const container = document.getElementById('listaReceitas');
+
+    if (input) input.value = competencia;
+    if (resumo) resumo.textContent = `Exibindo receitas de ${this.formatarCompetenciaDashboard(competencia)}.`;
+    if (totalEl) totalEl.textContent = `R$ ${this.formatarMoeda(totalAtual)}`;
+    if (quantidadeEl) quantidadeEl.textContent = String(receitasPeriodo.length);
+    if (comparacaoEl) comparacaoEl.textContent = `${diferenca >= 0 ? '+' : '-'}R$ ${this.formatarMoeda(Math.abs(diferenca))}`;
+    if (comparacaoMetaEl) comparacaoMetaEl.textContent = `${tendencia} em relação a ${this.formatarCompetenciaDashboard(competenciaAnterior)}.`;
+
+    this.renderizarResumoCategoriasReceita(receitasPeriodo);
+
+    if (!container) return;
+
+    if (receitasPeriodo.length === 0) {
+        container.innerHTML = '<div class="empty-state">Você ainda não tem receitas cadastradas neste mês.</div>';
+        return;
+    }
+
+    if (receitasFiltradas.length === 0) {
+        const labels = {
+            recebido: 'recebidas',
+            pendente: 'pendentes'
+        };
+        container.innerHTML = `<div class="empty-state">Nenhuma receita ${labels[this.currentReceitaFilter] || ''} encontrada neste mês.</div>`;
+        return;
+    }
+
+    container.innerHTML = receitasFiltradas.map(receita => `
+        <div class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">${receita.descricao}</div>
+                <div class="list-item-meta">${this.formatarData(receita.data)} • ${receita.categoria} • ${receita.status === 'recebido' ? '✓ Recebido' : '⏳ Pendente'}</div>
+                ${this.renderDescricaoDetalhada(this.obterDescricaoDetalhada(receita))}
+            </div>
+            <div class="list-item-value income">+ R$ ${this.formatarMoeda(receita.valor)}</div>
+            <div class="list-actions">
+                <button class="btn-warning btn-small" onclick="app.editarReceita(${receita.id})">Editar</button>
+                <button class="btn-danger btn-small" onclick="app.deletarReceita(${receita.id})">Del</button>
+            </div>
+        </div>
+    `).join('');
+};
+
+app.renderDespesasPeriodo = function() {
+    const competencia = this.getSelectedMonth('despesas');
+    const despesasPeriodo = this.obterDespesasDoPeriodoSecao(competencia);
+    const despesasFiltradas = this.aplicarFiltroDespesaPeriodo(despesasPeriodo, this.currentDespesaFilter);
+    const competenciaAnterior = this.obterCompetenciaAnterior(competencia);
+    const despesasPeriodoAnterior = this.obterDespesasDoPeriodoSecao(competenciaAnterior);
+    const totalAtual = this.calcularTotalDoPeriodo(despesasPeriodo);
+    const totalAnterior = this.calcularTotalDoPeriodo(despesasPeriodoAnterior);
+    const diferenca = totalAtual - totalAnterior;
+    const tendencia = Math.abs(diferenca) < 0.01 ? 'Estabilidade' : diferenca > 0 ? 'Alta' : 'Queda';
+
+    const input = document.getElementById('despesasPeriodoInput');
+    const resumo = document.getElementById('despesasPeriodoResumo');
+    const totalEl = document.getElementById('despesasPeriodoTotal');
+    const quantidadeEl = document.getElementById('despesasPeriodoQuantidade');
+    const comparacaoEl = document.getElementById('despesasPeriodoComparacao');
+    const comparacaoMetaEl = document.getElementById('despesasPeriodoComparacaoMeta');
+    const container = document.getElementById('listaDespesas');
+
+    if (input) input.value = competencia;
+    if (resumo) resumo.textContent = `Exibindo despesas de ${this.formatarCompetenciaDashboard(competencia)}.`;
+    if (totalEl) totalEl.textContent = `R$ ${this.formatarMoeda(totalAtual)}`;
+    if (quantidadeEl) quantidadeEl.textContent = String(despesasPeriodo.length);
+    if (comparacaoEl) comparacaoEl.textContent = `${diferenca >= 0 ? '+' : '-'}R$ ${this.formatarMoeda(Math.abs(diferenca))}`;
+    if (comparacaoMetaEl) comparacaoMetaEl.textContent = `${tendencia} em relação a ${this.formatarCompetenciaDashboard(competenciaAnterior)}.`;
+
+    this.renderizarResumoCategoriasDespesa(despesasPeriodo);
+
+    if (!container) return;
+
+    if (despesasPeriodo.length === 0) {
+        container.innerHTML = '<div class="empty-state">Você ainda não tem despesas cadastradas neste mês.</div>';
+        return;
+    }
+
+    if (despesasFiltradas.length === 0) {
+        const labels = {
+            fixa: 'fixas',
+            variavel: 'variáveis'
+        };
+        container.innerHTML = `<div class="empty-state">Nenhuma despesa ${labels[this.currentDespesaFilter] || ''} encontrada neste mês.</div>`;
+        return;
+    }
+
+    container.innerHTML = despesasFiltradas.map(despesa => `
+        <div class="list-item expense">
+            <div class="list-item-content">
+                <div class="list-item-title">${despesa.descricao}</div>
+                <div class="list-item-meta">${this.formatarData(despesa.data)} • ${this._resolveEmoji(despesa.categoria)} ${despesa.categoria} • ${despesa.tipo}</div>
+                ${this.renderDescricaoDetalhada(this.obterDescricaoDetalhada(despesa))}
+            </div>
+            <div class="list-item-value expense">- R$ ${this.formatarMoeda(despesa.valor)}</div>
+            <div class="list-actions">
+                <button class="btn-warning btn-small" onclick="app.editarDespesa(${despesa.id})">Editar</button>
+                <button class="btn-danger btn-small" onclick="app.deletarDespesa(${despesa.id})">Del</button>
+            </div>
+        </div>
+    `).join('');
+};
+
+app.listarReceitas = function(filtro = this.currentReceitaFilter || 'todas') {
+    this.currentReceitaFilter = filtro || 'todas';
+    this.renderReceitasPeriodo();
+};
+
+app.listarDespesas = function(filtro = this.currentDespesaFilter || 'todas') {
+    this.currentDespesaFilter = filtro || 'todas';
+    this.renderDespesasPeriodo();
+};
+
+app.renderizarDependenciasReceita = function() {
+    this.atualizarDashboard();
+    this.listarReceitas(this.currentReceitaFilter || 'todas');
+    if (typeof this.atualizarRelatorio === 'function') this.atualizarRelatorio();
+    if (typeof this.renderComparativos === 'function') this.renderComparativos();
+    if (typeof this.renderVisaoAnual === 'function') this.renderVisaoAnual();
+};
+
+app.renderizarDependenciasDespesa = function() {
+    this.verificarAlertasTeto();
+    this.renderTetoCards();
+    this.atualizarDashboard();
+    this.listarDespesas(this.currentDespesaFilter || 'todas');
+    if (typeof this.atualizarRelatorio === 'function') this.atualizarRelatorio();
+    if (typeof this.renderComparativos === 'function') this.renderComparativos();
+    if (typeof this.renderVisaoAnual === 'function') this.renderVisaoAnual();
+};
+
+const mudarSecaoPeriodoMensalBase = app.mudarSecao.bind(app);
+app.mudarSecao = function(id, btn) {
+    mudarSecaoPeriodoMensalBase(id, btn);
+    if (id === 'receitas') this.renderReceitasPeriodo();
+    if (id === 'despesas') this.renderDespesasPeriodo();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    app.receitasPeriodoSelecionado = app.getSelectedMonth('dashboard');
+    app.despesasPeriodoSelecionado = app.getSelectedMonth('dashboard');
+    app.renderReceitasPeriodo();
+    app.renderDespesasPeriodo();
+});
 </script>
 <script>
 app._protecaoLocalKey = 'financeiroProtecaoLocal';
